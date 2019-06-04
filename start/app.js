@@ -71,6 +71,6 @@ const commands = []
 |
 */
 
-const jobs = []
+const jobs = ['App/Jobs/NewEventMail']
 
 module.exports = { providers, aceProviders, aliases, commands, jobs }

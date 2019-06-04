@@ -24,4 +24,6 @@ Route.group(() => {
   Route.put('users', 'UserController.update').validator('UserUpdate')
 
   Route.resource('events', 'EventController').apiOnly()
+
+  Route.post('share/:id', 'ShareController.store')
 }).middleware(['auth'])
