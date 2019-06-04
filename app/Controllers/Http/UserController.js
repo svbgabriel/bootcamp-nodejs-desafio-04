@@ -23,19 +23,35 @@ class UserController {
    * @param {Response} ctx.response
    */
   async update ({ auth, request, response }) {
-    const data = request.only(['name', 'old_password', 'new_password'])
+    var data = request.only(['name', 'old_password', 'password'])
 
     const user = await User.findOrFail(auth.user.id)
 
-    const isCorrect = await Hash.verify(data.old_password, user.password)
+    if (data.old_password) {
+      const isCorrect = await Hash.verify(data.old_password, user.password)
 
-    if (!isCorrect) {
-      return response
-        .status(401)
-        .send({ error: { message: 'Senha incorreta' } })
+      if (!isCorrect) {
+        return response
+          .status(401)
+          .send({ error: { message: 'Senha incorreta' } })
+      }
+
+      if (!data.password) {
+        return response
+          .status(401)
+          .send({ error: { message: 'Você não informou a senha nova' } })
+      }
+
+      delete data.old_password
     }
 
-    user.merge({ name: data.name, password: data.new_password })
+    if (!data.password) {
+      delete data.password
+    }
+
+    console.log(data)
+
+    user.merge(data)
 
     await user.save()
 

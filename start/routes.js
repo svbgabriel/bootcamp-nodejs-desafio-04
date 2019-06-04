@@ -22,4 +22,6 @@ Route.post('session', 'SessionController.store').validator('Session')
 
 Route.group(() => {
   Route.put('users', 'UserController.update').validator('UserUpdate')
+
+  Route.resource('events', 'EventController').apiOnly()
 }).middleware(['auth'])

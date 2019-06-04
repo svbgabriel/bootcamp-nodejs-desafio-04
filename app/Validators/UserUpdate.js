@@ -7,7 +7,7 @@ class UserUpdate {
 
   get rules () {
     return {
-      new_password: 'confirmed'
+      password: 'confirmed'
     }
   }
 }
