@@ -2,16 +2,16 @@
 
 const Antl = use('Antl')
 
-class User {
+class Event {
   get validateAll () {
     return true
   }
 
   get rules () {
     return {
-      name: 'required|unique:users',
-      email: 'required|email|unique:users',
-      password: 'required|confirmed'
+      title: 'required',
+      localization: 'required',
+      date_hour: 'required'
     }
   }
 
@@ -20,4 +20,4 @@ class User {
   }
 }
 
-module.exports = User
+module.exports = Event
